@@ -83,16 +83,15 @@ void print_tree(struct node* tree)
 
 void terminate_tree(struct node** tree)
 {
-	if (!tree)
+	if (!*tree)
 	{
 		return;
 	}
 	terminate_tree(&(*tree)->left);
 	terminate_tree(&(*tree)->right);
-	(*tree)->left = NULL;
-	(*tree)->right = NULL;
-	(*tree)->data = NULL;
-	delete tree;
+	
+	delete *tree;
+	*tree = NULL;
 }
 
 
