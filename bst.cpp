@@ -60,24 +60,13 @@ void insert_integer(struct node** tree, int value)
 
 void print_tree(struct node* tree)
 {
-	if (!tree->left)
+	if (!tree)
 	{
-		std::cout << tree->data << " ";
-		if (tree->right)
-		{
-			print_tree(tree->right);
-		}
+		return;
 	}
-
-	else
-	{
-		print_tree(tree->left);
-		std::cout << tree->data << " ";
-		if (tree->right)
-		{
-			print_tree(tree->right);
-		}
-	}
+	print_tree(tree->left);
+	std::cout << tree->data << " ";
+	print_tree(tree->right);
 }
 
 
@@ -103,15 +92,22 @@ int most_common_integer(struct node* tree)
 
 int largest_integer(struct node* tree)
 {
-	return 0;
-
+	if (!tree->right)
+	{
+		return tree->data;
+	}
+	largest_integer(tree->right);
 }
 
 
 int summ_of_all_integers(struct node* tree)
 {
-	return 0;
-
+	int sum = 0;
+	if (!tree)
+	{
+		return 0;
+	}
+	return sum = tree->data + summ_of_all_integers(tree->right) + summ_of_all_integers(tree->left);
 }
 
 
@@ -125,7 +121,7 @@ int main()
 
 	do
 	{
-		std::cout << "Perform BST \n1. Insert \n2. Print \n3. Terminate\n";
+		std::cout << "Perform BST \n1. Insert \n2. Print \n3. Terminate\n4. Most common integer\n5. Largest integer\n6. Sum of all integer\n";
 		std::cin >> ans;
 		switch (ans)
 		{
@@ -138,7 +134,7 @@ int main()
 		case 2:
 			if (!root)
 			{
-				std::cout << "No data found";
+				std::cout << "No data found" << "\n";
 			}
 
 			else
@@ -151,12 +147,48 @@ int main()
 		case 3:
 			if (!root)
 			{
-				std::cout << "No data found";
+				std::cout << "No data found" << "\n";
 			}
 
 			else
 			{
-				terminate_tree(root);
+				terminate_tree(tree);
+			}
+			break;
+
+		case 4:
+			if (!root)
+			{
+				std::cout << "No data found" << "\n";
+			}
+
+			else
+			{
+				std::cout << most_common_integer(root) << "\n";
+			}
+			break;
+
+		case 5:
+			if (!root)
+			{
+				std::cout << "No data found" << "\n";
+			}
+
+			else
+			{
+				std::cout << largest_integer(root) << "\n";
+			}
+			break;
+
+		case 6:
+			if (!root)
+			{
+				std::cout << "No data found" << "\n";
+			}
+
+			else
+			{
+				std::cout << summ_of_all_integers(root) << "\n";
 			}
 			break;
 		}
