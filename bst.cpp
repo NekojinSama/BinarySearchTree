@@ -86,7 +86,41 @@ void terminate_tree(struct node** tree)
 
 int most_common_integer(struct node* tree)
 {
-	return 0;
+	int count = 1, currmax = 1;
+	if (!tree)
+	{
+		return;
+	}
+
+	//return count = 1 + most_common_integer(tree->right) + most_common_integer(tree->left);
+	int value = tree->data;
+
+	while (tree->right != NULL)
+	{
+		if(value == (tree->right->data))
+		{
+			count += 1;
+		}
+		tree = tree->right;
+	} 
+
+	while (tree->left != NULL)
+	{
+		if (value == (tree->left->data))
+		{
+			count += 1;
+		}
+		tree = tree->left;
+	}
+
+	if (currmax < count)
+		currmax = tree->data;
+	
+
+
+	most_common_integer(tree->left);
+	most_common_integer(tree->right);
+	return currmax;
 }
 
 
